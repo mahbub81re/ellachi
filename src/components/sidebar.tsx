@@ -12,7 +12,7 @@ export default function Sidebar() {
         <Link href={"/"}>Home</Link> 
        </div >
        <div className='  flex justify-left ml-[40px] text-xl font-bold   w-3/4 border-pink-300'>
-        <Link href={"/"}>Beg Collection</Link> 
+        <Link href={"/"}>Bag Collection</Link> 
        </div>
        <div className='  flex justify-left ml-[40px] text-xl font-bold   w-3/4 border-pink-300'>
         <Link href={"/"}>Contact Us</Link> 

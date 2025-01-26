@@ -1,4 +1,5 @@
 import Footer from "@/components/footer";
+import Footnav from "@/components/footnav";
 import Header from "@/components/header";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <Header/>
     Hi, This is Mahbub
     <Footer/>
+    <Footnav/>
    </div>
   );
 }

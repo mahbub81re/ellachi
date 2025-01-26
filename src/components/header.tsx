@@ -12,7 +12,7 @@ import Link from 'next/link';
 export default function Header() {
   const [openSidebar,setOpenSidebar]= useState(false);
   return (
-    <div className='flex flex-row justify-between bg-white shadow-sm'>
+    <div className='flex flex-row justify-between bg-white shadow-sm py-2'>
         <div className='flex flex-row justify-start relative'>
            {!openSidebar && <div className='m-1 flex flex-col justify-center' onClick={()=>setOpenSidebar(true)}>
               <AiFillCaretRight  size={30} />
@@ -23,7 +23,7 @@ export default function Header() {
             <div className='relative'  >
              {openSidebar && 
              <>
-              <div className=' absolute w-screen h-screen  bg-black/60 left-0   z-10' ></div>
+              <div className=' absolute w-screen h-screen  bg-black/60 left-0   z-10' onClick={()=>setOpenSidebar(!openSidebar)} ></div>
               <Sidebar  />
               </>
               }

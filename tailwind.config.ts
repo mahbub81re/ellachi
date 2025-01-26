@@ -11,7 +11,13 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        
       },
+      textColor:{
+        skin:{
+          primary:"var(----color-primary-text)"
+        }
+      }
     },
   },
   plugins: [],

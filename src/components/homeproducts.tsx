@@ -21,14 +21,14 @@ export default function HomeProducts() {
       imgSrc="/slider2/1.png"
     >
       <a href="#">
-        <h5 className="text-md font-semibold tracking-tight text-gray-900 dark:text-white">
+        <h5 className="text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
           Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
         </h5>
       </a>
       <div className="mb-1 mt-1 flex flex-row items-center">
        
-       <span className="text-xl font-bold text-gray-900 dark:text-white">$599</span>
-       <span className="text-xl font-bold text-gray-900 dark:text-white">$599</span>
+      <span className="text-xl font-bold  dark:text-white pr-2 text-red-500"><del>$599</del></span>
+      <span className="text-xl font-bold text-green-900 dark:text-white">$400</span>
       </div>
       <div className="flex flex-col ">
        
@@ -55,14 +55,14 @@ export default function HomeProducts() {
       imgSrc="/slider2/1.png"
     >
       <a href="#">
-        <h5 className="text-md font-semibold tracking-tight text-gray-900 dark:text-white">
+        <h5 className="text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
           Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
         </h5>
       </a>
       <div className="mb-1 mt-1 flex flex-row items-center">
        
-       <span className="text-xl font-bold text-gray-900 dark:text-white">$599</span>
-       <span className="text-xl font-bold text-gray-900 dark:text-white">$599</span>
+       <span className="text-xl font-bold  dark:text-white pr-2 text-red-500"><del>$599</del></span>
+       <span className="text-xl font-bold text-green-900 dark:text-white">$400</span>
       </div>
       <div className="flex flex-col ">
        

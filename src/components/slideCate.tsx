@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const SideCate = () => {
   const [cates, setCates] = useState([
@@ -53,29 +54,33 @@ const SideCate = () => {
   return (
 
     <div className='w-full flex flex-col'>
+        
           <div className='flex flex-row justify-center'>
             <div className=' text-2xl font-bold m-5 border-b-2'>CATEGORIES</div>
           </div>
-    <div className="relative w-full max-w-4xl mx-auto">
-    
-      <div className="overflow-hidden">
-        <motion.div
-          className="flex gap-4"
+
+      <div className="flex flex-row justify-center items-center">
+       <div className="relative  max-w-4xl mx-auto w-[90%]">
+         <div className="overflow-hidden ">
+          <motion.div
+          className="flex gap-2"
           initial={{ x: 0 }}
           animate={{ x: -0 }}
           transition={{ duration: 2 }}
-        >
+           >
           {cates.slice(0, 3).map((item,index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-1/3 p-4   text-center"
+              className="flex-shrink-0 w-1/3 p-4 flex flex-row justify-center  text-center"
             >
-               <img src={"/slider2/"+item.image}/>
+               <Image alt={item.name} width={200} height={200} src={"/slider2/"+item.image}/>
             </div>
           ))}
-        </motion.div>
-      </div>
+          </motion.div>
+        </div>
+       </div>
     </div>
+    
     </div>
   );
 };

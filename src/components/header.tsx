@@ -36,8 +36,8 @@ export default function Header() {
 
         <div>
           <div className='w-[350px] h-12 bg-white border-2 rounded-full m-1 flex max-md:hidden'>
-            <input type='text' name='search' placeholder='Search entire store here' className=' pl-2 bg-transparent focus-visible:outline-none h-12'/>
-             <select className='w-[80px] h-12 bg-transparent pr-2 '>
+            <input type='text' name='search' placeholder='Search entire store here' className=' pl-2 bg-transparent  border-none h-12'/>
+             <select className='w-[80px] h-12 bg-transparent border-none pr-2 '>
                <option>Cat1</option>
                <option>Cat1</option>
                <option>Cat1</option>

@@ -7,7 +7,7 @@ import { FaShop } from 'react-icons/fa6';
 import { IoSearchSharp } from 'react-icons/io5';
 export default function Footnav() {
   return (
-    <div className=' fixed bottom-0 w-screen h-14 text-gray-500 flex flex-row justify-around'> 
+    <div className=' fixed bottom-0 w-screen h-14 text-gray-500 flex flex-row justify-around  md:hidden bg-white '> 
       <div className='flex flex-row justify-center w-1/5'>
         <div className='flex flex-col justify-center '>
            <Link href="/">

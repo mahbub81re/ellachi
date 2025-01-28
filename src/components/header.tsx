@@ -1,10 +1,10 @@
 "use client"
 import React, { useState } from 'react'
 import Logo from './logo'
-import { AiFillCaretRight, AiFillHeart, AiOutlineClose } from "react-icons/ai";
+import { AiFillCaretRight, AiOutlineClose } from "react-icons/ai";
 import { IoSearchSharp } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
-import { FaShoppingCart } from "react-icons/fa";
+
 
 import Sidebar from './sidebar';
 import Link from 'next/link';

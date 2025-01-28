@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import React from 'react'
-import { AiOutlineBars } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineBars } from 'react-icons/ai';
 import { CiHome } from "react-icons/ci";
 import { FaShoppingCart } from 'react-icons/fa';
 import { FaShop } from 'react-icons/fa6';
-import { IoSearchSharp } from 'react-icons/io5';
+
 export default function Footnav() {
   return (
     <div className=' fixed bottom-0 w-screen h-14 text-gray-500 flex flex-row justify-around  md:hidden bg-white '> 
@@ -38,10 +38,10 @@ export default function Footnav() {
         <div className='flex flex-col justify-center'>
            <Link href="/">
              <div>
-               <IoSearchSharp size={20} className='mx-auto'/>
+               <AiFillHeart size={20} className='mx-auto'/>
             </div>
             <div className=' text-[12px]'>
-             SEARCH
+             FAVOURITE
             </div> 
             </Link>
         </div>
@@ -67,7 +67,7 @@ export default function Footnav() {
             <FaShoppingCart size={20} className='mx-auto'/>
             </div>
            <div className=' text-[12px]'>
-             ACCOUNT
+             BAG
             </div> 
             </Link>
         </div>

@@ -57,9 +57,8 @@ export default function Header() {
 
 
         <div className='flex mx-4 '>
-            <div className='mx-2 my-auto'><Link href="/"><AiFillHeart size={30}/></Link></div>
+            <div className='mx-2 my-auto'><Link href="/search"><IoSearchSharp size={30}/></Link></div>
             <div className='mx-2 my-auto'><Link href="/"><CgProfile size={30}/></Link></div>
-            <div className='mx-2 my-auto'><Link href="/"><FaShoppingCart size={30}/></Link></div>
         </div>
         
         </div>

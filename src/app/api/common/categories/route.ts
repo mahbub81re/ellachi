@@ -9,7 +9,7 @@ import {  NextResponse } from "next/server";
 export async function GET(){
     try{
       connectDB() 
-      const  categories =await Category.find({categorySlug:"main"});
+      const  categories =await Category.find();
        if(categories){
         return  NextResponse.json({success:true, status:200, data:categories})
        }else{

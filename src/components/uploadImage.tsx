@@ -9,6 +9,18 @@ const UploadImage: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState<number>(0);
   const [imageUrl, setImageUrl] = useState<string>("");
+  const [copy , setCopy]=useState(false);
+
+ const  copyToClipboard = (text:string) => {
+    console.log('text', text)
+    var textField = document.createElement('textarea')
+    textField.innerText = text
+    document.body.appendChild(textField)
+    textField.select()
+    document.execCommand('copy')
+    textField.remove()
+    setCopy(true);
+  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -49,7 +61,8 @@ const UploadImage: React.FC = () => {
       </button>
       {progress > 0 && <p>Upload Progress: {progress.toFixed(0)}%</p>}
       {imageUrl && <img src={imageUrl} alt="Uploaded" className="mt-4 w-40 h-40 object-cover rounded-lg" />}
-      {imageUrl && imageUrl }
+      {imageUrl && 
+      <button onClick={()=>copyToClipboard(imageUrl)}>{copy?"Copied!":"Copy Url"}</button> }
     </div>
   );
 };

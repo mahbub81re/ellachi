@@ -2,6 +2,7 @@
 
 import React, {  useState } from 'react'
 import AllCat from './_components/AllCat';
+import UploadImage from '@/components/uploadImage';
 interface Product {
         productName:string,
         productDescription: string,
@@ -106,6 +107,7 @@ export default function Product() {
               </div>
               <div className="flex flex-col w-full lg:px-5">
                 <label className="text-sm">productImage</label>
+                <UploadImage/>
                 <div className="bg-white flex justify-start items-start py-3 px-4 rounded text-slate-600 text-lg mt-1">
                   <input
                     type={"textarea"}

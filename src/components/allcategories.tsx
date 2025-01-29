@@ -16,10 +16,11 @@ interface Category{
 
 export default function Allcategories() {
   const [catagories, setCat]= useState([])
+  
   useEffect(()=>{
      getCatagoy()
   },[])
-  let count=0;
+
   async function getCatagoy(){
       const res =await fetch("/api/common/categories");
       const data = await res.json();
@@ -39,7 +40,7 @@ export default function Allcategories() {
     <div className=' -mt-[2px] flex justify-left ml-8 text-2xl font-bold  border-b-2 w-[100px] border-pink-300 mb-4'/>
     <>
     {catagories.map((category:Category)=>{
-            count+=1;
+            
             return(
                <div key={category._id} className='  flex justify-left ml-[40px] text-xl font-bold  w-3/4 border-pink-300'>
                   <Link href={"/"}>{category.categoryName}</Link> 

@@ -13,7 +13,7 @@ const UploadImage: React.FC = () => {
 
  const  copyToClipboard = (text:string) => {
     console.log('text', text)
-    var textField = document.createElement('textarea')
+    const textField = document.createElement('textarea')
     textField.innerText = text
     document.body.appendChild(textField)
     textField.select()

@@ -247,7 +247,7 @@ subcategories:[
                 <form onSubmit={handleCatCreate}>
                   <input type="text" onChange={(e)=>handleCatChange(e)} name="categoryName" className=" border-b-2" value={category.categoryName} placeholder="categoryName"/>
                   <input type="text" onChange={(e)=>handleCatChange(e)} name="categoryDescription" className="border-b-2" value={category.categoryDescription}  placeholder="categoryDescription"/>
-                  <UploadImage/>
+                  
                   <input type="text" onChange={(e)=>handleCatChange(e)} name="categoryImage"  className="border-b-2" value={category.categoryImage} placeholder="categoryImage"/>
                   <input type="text" onChange={(e)=>handleCatChange(e)} name="categorySlug"  className=" border-b-2" value={category.categorySlug} placeholder="categorySlug"/>
                   <select  onChange={handleCatChange} className=" border-b-2 w-full" name="perent_id" defaultValue={category.perent_id}>
@@ -258,6 +258,7 @@ subcategories:[
                 <button className="m-3 bg-green-600 rounded-xl text-white p-3" type="submit">Save</button>
                 <button className="m-3" type="button" onClick={()=>setOpenCat(false)}>Cancel</button>
                 </form>
+                <UploadImage/>
           </div>
            }
 

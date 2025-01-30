@@ -1,7 +1,62 @@
+"use client"
 import { Card } from 'flowbite-react'
-import React from 'react'
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react'
+import { MdFavorite } from 'react-icons/md';
+import { toast } from 'sonner';
+
+
+type ProductData = {
+  _id: string,
+  productName: string,
+  productImage: string,
+  productPrice: number,
+  productSlug:string,
+  productQuantity: number,
+
+};
+
+
 
 export default function HomeProducts() {
+  const [products, setProducts] = useState <ProductData[] | []> ([]);
+  const [fetchingon, setFetching] = useState(true)
+  const [loading,setLoading]= useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+
+      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+        setFetching(true)
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [])
+
+  useEffect(()=>{
+      if(fetchingon && products.length%10===0)  getProducts()
+  },[fetchingon])
+
+
+  async function getProducts() {
+    setLoading(true)
+       const res  = await fetch("/api/common/products?limit="+products.length)
+     const data = await res.json();
+     if(data.success===false){
+      setFetching(false)
+      toast.error(data.message);
+     }else{
+      const fdata = data.data
+      const cproducts = [...products, ...fdata];
+        setProducts(cproducts)
+        setFetching(false)
+     }
+     setLoading(false)
+  }
+
+
   return (
     <div className='w-full flex flex-col'>
         
@@ -14,175 +69,50 @@ export default function HomeProducts() {
 
               
 
+                {loading?"Loading..":products.map((product)=>{
 
-          <Card
-      className="max-w-sm"
-      imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-      imgSrc="/slider2/1.png"
-    >
-      <a href="#">
-        <h5 className="text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
-          Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-        </h5>
-      </a>
-      <div className="mb-1 mt-1 flex flex-row items-center">
-       
-      <span className="text-xl font-bold  dark:text-white pr-2 text-red-500"><del>$599</del></span>
-      <span className="text-xl font-bold text-green-900 dark:text-white">$400</span>
-      </div>
-      <div className="flex flex-col ">
-       
-        <a
-          href="#"
-          className="rounded-lg mb-1 bg-cyan-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-        >
-          Add to cart
-        </a>
-        <a
-          href="#"
-          className="rounded-lg bg-pink-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-        >
-        Buy Now
-        </a>
-      </div>
-    </Card>
-
-
-
-    <Card
-      className="max-w-sm"
-      imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-      imgSrc="/slider2/2.png"
-    >
-      <a href="#">
-        <h5 className="text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
-          Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-        </h5>
-      </a>
-      <div className="mb-1 mt-1 flex flex-row items-center">
-       
-       <span className="text-xl font-bold  dark:text-white pr-2 text-red-500"><del>$599</del></span>
-       <span className="text-xl font-bold text-green-900 dark:text-white">$400</span>
-      </div>
-      <div className="flex flex-col ">
-       
-        <a
-          href="#"
-          className="rounded-lg mb-1 bg-cyan-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-        >
-          Add to cart
-        </a>
-        <a
-          href="#"
-          className="rounded-lg bg-pink-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-        >
-        Buy Now
-        </a>
-      </div>
-    </Card>
+                  return(<Card
+                    key={product._id}
+                    className="max-w-sm relative"
+                    imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
+                    imgSrc={product.productImage}
+                  >
+                     <div className=' absolute text-white top-0 right-0 p-3 hover:text-red-500'> <MdFavorite size={30} /> </div>
+                    <Link href="/">
+                      <h5 className="text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
+                       {product.productName}
+                      </h5>
+                    
+                    <div className="mb-1 mt-1 flex flex-row items-center my-2">
+                     
+                    <span className="text-xl font-bold  dark:text-white pr-2 text-red-500"><del>${product.productSlug}</del></span>
+                    <span className="text-xl font-bold text-green-900 dark:text-white">${product.productPrice}</span>
+                    </div>
+                    </Link>
+                    <div className="flex flex-col ">
+                    
+                      <button
+                        className="rounded-lg mb-1 bg-cyan-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
+                      >
+                        Add to cart
+                      </button>
+                      <button
+                        className="rounded-lg bg-pink-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
+                      >
+                      Buy Now
+                      </button>
+                    </div>
+                  </Card>)
 
 
-    <Card
-      className="max-w-sm"
-      imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-      imgSrc="/slider2/3.png"
-    >
-      <a href="#">
-        <h5 className="text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
-          Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-        </h5>
-      </a>
-      <div className="mb-1 mt-1 flex flex-row items-center">
-       
-       <span className="text-xl font-bold  dark:text-white pr-2 text-red-500"><del>$599</del></span>
-       <span className="text-xl font-bold text-green-900 dark:text-white">$400</span>
-      </div>
-      <div className="flex flex-col ">
-       
-        <a
-          href="#"
-          className="rounded-lg mb-1 bg-cyan-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-        >
-          Add to cart
-        </a>
-        <a
-          href="#"
-          className="rounded-lg bg-pink-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-        >
-        Buy Now
-        </a>
-      </div>
-    </Card>
+               })
+            }
 
 
 
 
-    <Card
-      className="max-w-sm"
-      imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-      imgSrc="/slider2/4.png"
-    >
-      <a href="#">
-        <h5 className="text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
-          Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-        </h5>
-      </a>
-      <div className="mb-1 mt-1 flex flex-row items-center">
-       
-       <span className="text-xl font-bold  dark:text-white pr-2 text-red-500"><del>$599</del></span>
-       <span className="text-xl font-bold text-green-900 dark:text-white">$400</span>
-      </div>
-      <div className="flex flex-col ">
-       
-        <a
-          href="#"
-          className="rounded-lg mb-1 bg-cyan-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-        >
-          Add to cart
-        </a>
-        <a
-          href="#"
-          className="rounded-lg bg-pink-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-        >
-        Buy Now
-        </a>
-      </div>
-    </Card>
 
-
-
-
-    <Card
-      className="max-w-sm"
-      imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-      imgSrc="/slider2/1.png"
-    >
-      <a href="#">
-        <h5 className="text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
-          Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-        </h5>
-      </a>
-      <div className="mb-1 mt-1 flex flex-row items-center">
-       
-       <span className="text-xl font-bold  dark:text-white pr-2 text-red-500"><del>$599</del></span>
-       <span className="text-xl font-bold text-green-900 dark:text-white">$400</span>
-      </div>
-      <div className="flex flex-col ">
-       
-        <a
-          href="#"
-          className="rounded-lg mb-1 bg-cyan-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-        >
-          Add to cart
-        </a>
-        <a
-          href="#"
-          className="rounded-lg bg-pink-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-        >
-        Buy Now
-        </a>
-      </div>
-    </Card>
+ 
 
       
            </div>

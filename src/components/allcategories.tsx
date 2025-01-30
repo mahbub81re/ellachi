@@ -43,8 +43,8 @@ export default function Allcategories() {
     {catagories.map((category:Category)=>{
             
             return(
-               <div key={category._id} className='  flex justify-left ml-[40px] text-xl font-bold  w-3/4 border-pink-300'>
-                  <Link href={"/"}>{category.categoryName}</Link> 
+               <div key={category._id} className='  flex justify-left ml-[40px] text-xl font-bold  w-3/4 my-2'>
+                  <Link href={"/products/"+category._id}>{category.categoryName}</Link> 
              </div > )
     }
   )}

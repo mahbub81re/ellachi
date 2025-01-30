@@ -13,7 +13,7 @@ export async function GET(req:NextRequest) {
     if(limit){
         try{
     connectDB();
-        const products =await Product.find();
+        const products =await Product.find().limit(20).skip(parseInt(limit));
         if(products ){
             if(products.length === 0 ){
                 return NextResponse.json({status:200, success  :false , message :"No more products found"});

@@ -75,14 +75,14 @@ export default function Footnav() {
 
       <div className='flex flex-row justify-center border-l-2 w-1/5'>
         <div className='flex flex-col justify-center px-2' onClick={()=>setCateOpener(!cateOpener)}>
-          <Link href="/">
+          
             <div>
              <AiOutlineBars size={25} className='mx-auto'/>
             </div>
             <div className=' text-[10px]'>
              CATEGORIES
             </div> 
-            </Link>
+         
         </div>
       </div>
 

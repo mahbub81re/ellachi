@@ -2,39 +2,40 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+interface Category{
+    
+  _id:string;
+  categoryName:string;
+  categoryDescription:string;
+  categoryImage:string;
+  categorySlug:string;
+  subcategories:[
+  
+  ];
+    }
 
 const SideCate = () => {
-  const [cates, setCates] = useState([
-    {   
-        id:1,
-        name:"cat1",
-        image:"1.png"
-    },
-    {   
-        id:2,
-        name:"cat2",
-        image:"2.png"
-    },
-    {   
-        id:3,
-        name:"cat3",
-        image:"3.png"
-    },
-    {   
-        id:4,
-        name:"cat4",
-        image:"4.png"
-    },
-    {   
-        id:5,
-        name:"cat5",
-        image:"5.png"
-    },
-]);
+     const [categories, setCategories]= useState<Category [] | []>([])
   
 
+  
+useEffect(()=>{
+    
+      getCategories()
+    },[])
+
+
+async function getCategories(){
+  const res = await fetch("/api/common/categories");
+  const data = await res.json();
+  console.log(data.data)
+  setCategories(data.data)
+}
+
+
   const handleNext = () => {
-    setCates((prev) => {
+    setCategories((prev) => {
         const newItems = [...prev.slice(1), prev[0]];
       return newItems;
     });
@@ -45,7 +46,7 @@ const SideCate = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       handleNext();
-    }, 15000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -66,14 +67,17 @@ const SideCate = () => {
           className="flex gap-2"
           initial={{ x: 0 }}
           animate={{ x: -0 }}
-          transition={{ duration: 2 }}
+          transition={{ duration: 5 }}
            >
-          {cates.slice(0, 3).map((item,index) => (
+          {categories.slice(0, 3).map((item) => (
             <div
-              key={index}
-              className="flex-shrink-0 w-1/3 p-4 flex flex-row justify-center  text-center"
+              key={item._id}
+              className="flex-shrink-0 w-1/3 p-4  justify-center relative  text-center"
             >
-               <Image alt={item.name} width={200} height={200} src={"/slider2/"+item.image}/>
+             <Link href={"/products/"+item._id}>  
+             <Image alt={item._id} width={200} height={200} src={item.categoryImage}/>
+             </Link>
+             <div className=" absolute bottom-5 left-5 bg-white rounded-md p-2">{item.categoryName}</div>
             </div>
           ))}
           </motion.div>
@@ -86,36 +90,5 @@ const SideCate = () => {
 };
 
 export default SideCate;
-
-
-
-// import React from 'react'
-
-// export default function SideCate() {
-//   return (
-//     <div className='w-full flex flex-col'>
-//       <div className='flex flex-row justify-center'>
-//         <div className=' text-2xl font-bold m-5 border-b-2'>CATEGORIES</div>
-//       </div>
-//       <div className='flex flex-row justify-center relative '>
-//         <div className='w-full h-56 md:w-4/5  overflow-hidden bg-gray-400'>
-//           <div className=''>
-//             card1
-//           </div>
-//           <div className=''>
-//           card1
-//           </div>
-//           <div className=''>
-//           card1
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
-
-
-
 
 

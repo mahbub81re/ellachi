@@ -60,7 +60,6 @@ const UploadImage: React.FC = () => {
         Upload
       </button>
       {progress > 0 && <p>Upload Progress: {progress.toFixed(0)}%</p>}
-      {imageUrl && <img src={imageUrl} alt="Uploaded" className="mt-4 w-40 h-40 object-cover rounded-lg" />}
       {imageUrl && 
       <button onClick={()=>copyToClipboard(imageUrl)}>{copy?"Copied!":"Copy Url"}</button> }
     </div>

@@ -9,6 +9,7 @@ interface Product {
         productImage:string,
         productSlug: string,
         productPrice:number,
+        productDPrice:number,
         productQuantity:number,
         productFeatured: true,
         productCategory: string,
@@ -22,6 +23,7 @@ export default function Product() {
         productImage: '',
         productSlug: '',
         productPrice: 0,
+        productDPrice:0,
         productQuantity: 0,
         productFeatured: true,
         productCategory: '',
@@ -59,6 +61,7 @@ export default function Product() {
           productImage: '',
           productSlug: '',
           productPrice: 0,
+          productDPrice:0,
           productQuantity: 0,
           productFeatured: true,
           productCategory: '',
@@ -76,8 +79,9 @@ export default function Product() {
   }
   return (
     <div className='flex pt-24 flex-col justify-center items-center'>
-      <div className='w-[450px]  bg-red-500'>
+      <div className='w-[450px]  bg-gray-300'>
         {error}
+        <UploadImage/>
         <form className="w-full px-5 py-6 space-y-6"
               onSubmit={(event)=>handleSubmit(event)} >
            <div className="flex flex-col w-full lg:px-5">
@@ -107,7 +111,7 @@ export default function Product() {
               </div>
               <div className="flex flex-col w-full lg:px-5">
                 <label className="text-sm">productImage</label>
-                <UploadImage/>
+                
                 <div className="bg-white flex justify-start items-start py-3 px-4 rounded text-slate-600 text-lg mt-1">
                   <input
                     type={"textarea"}
@@ -120,7 +124,7 @@ export default function Product() {
                 </div>
               </div>
               <div className="flex flex-col w-full lg:px-5">
-                <label className="text-sm">productSlug</label>
+                <label className="text-sm">Product Price</label>
                 <div className="bg-white flex justify-start items-start py-3 px-4 rounded text-slate-600 text-lg mt-1">
                   <input
                     type={"text"}
@@ -133,7 +137,7 @@ export default function Product() {
                 </div>
               </div>
               <div className="flex flex-col w-full lg:px-5">
-                <label className="text-sm">productPrice</label>
+                <label className="text-sm">---</label>
                 <div className="bg-white flex justify-start items-start py-3 px-4 rounded text-slate-600 text-lg mt-1">
                   <input
                     type={"number"}
@@ -141,6 +145,19 @@ export default function Product() {
                     name="productPrice"
                     className="outline-none w-full px-4"
                     value={product.productPrice}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col w-full lg:px-5">
+                <label className="text-sm">Dicount Price</label>
+                <div className="bg-white flex justify-start items-start py-3 px-4 rounded text-slate-600 text-lg mt-1">
+                  <input
+                    type={"number"}
+                    placeholder="..."
+                    name="productDPrice"
+                    className="outline-none w-full px-4"
+                    value={product.productDPrice}
                     onChange={handleInputChange}
                   />
                 </div>

@@ -17,6 +17,6 @@ export async function GET(){
        }
     }catch(err){
         
-        NextResponse.json({success:false, status:402,message:"Someting is wrong!" , err:err.message})
+        NextResponse.json({success:false, status:402,message:"Someting is wrong!" , err:err})
     }
 }

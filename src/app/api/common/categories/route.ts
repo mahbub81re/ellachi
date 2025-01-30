@@ -16,7 +16,7 @@ export async function GET(){
         return NextResponse.json({success:false, status:401,message:"No Category founded"})
        }
     }catch(err){
-        console.log(err)
-        NextResponse.json({success:false, status:402,message:"Someting is wrong!"})
+        
+        NextResponse.json({success:false, status:402,message:"Someting is wrong!" , err:err.message})
     }
 }

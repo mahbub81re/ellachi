@@ -25,6 +25,7 @@ export default function Allcategories() {
       const res =await fetch("/api/common/categories");
       const data = await res.json();
       if(data.success===false){
+        console.log(data.err)
        toast.error("Network Problem! please reload the page or check your connection");
       }else{
         setCat(data.data)

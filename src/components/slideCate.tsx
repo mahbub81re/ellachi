@@ -72,7 +72,7 @@ async function getCategories(){
           {categories.slice(0, 3).map((item) => (
             <div
               key={item._id}
-              className="flex-shrink-0 w-1/3 p-4  justify-center relative  text-center"
+              className="flex-shrink-0 w-1/3 md:p-4  justify-center relative  text-center"
             >
              <Link href={"/products/"+item._id}>  
              <Image alt={item._id} width={200} height={200} src={item.categoryImage}/>

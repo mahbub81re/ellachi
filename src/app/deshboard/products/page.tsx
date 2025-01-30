@@ -62,8 +62,10 @@ subcategories:[
    const [subcategories, setSubCategories]= useState<Subcategories [] | []>([])
    const [subOpen , setSubOpen] = useState(false)
    const [selectedCat , setSelectedCat] = useState("")
+     const [fetchingon, setFetching] = useState(true)
   const [openCat, setOpenCat] =  useState(false)
   const [openCat2, setOpenCat2] =  useState(false)
+  const [loading,setLoading]=useState(true);
   const [category,setCategory] = useState({
     categoryName:"",
     categoryDescription:"",
@@ -77,41 +79,41 @@ subcategories:[
     },[])
   
 
-    let limit = 20;
-    const [loading,setLoading]= useState(false);
-    useEffect(() => {
-      const handleScroll = () => {
-        if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
-          console.log(limit)
-         if(!loading ){
-          limit+=20;
-          getProducts()
-         }
-        }
-      };
-      window.addEventListener('scroll', handleScroll);
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
-    }, [])
-  
-    useEffect(()=>{
-          getProducts()
-    },[limit])
-  
-    async function getProducts() {
-      setLoading(true)
-       const res  = await fetch("/api/common/products?limit="+limit)
-       const data = await res.json();
-       if(data.success===false){
-        toast.error("Network Problem! please reload the page or check your connection");
-       }else{
-         setProducts(data.data);
+  useEffect(() => {
+     const handleScroll = () => {
+ 
+       if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+         setFetching(true)
        }
-       setLoading(false)
-    }
-
-
+     };
+     window.addEventListener('scroll', handleScroll);
+     return () => {
+       window.removeEventListener('scroll', handleScroll);
+     };
+   }, [])
+ 
+   useEffect(()=>{
+       if(fetchingon && products.length%10===0)  getProducts()
+   },[fetchingon])
+ 
+ 
+   async function getProducts() {
+     setLoading(true)
+        const res  = await fetch("/api/common/products?limit="+products.length)
+      const data = await res.json();
+      if(data.success===false){
+       setFetching(false)
+       toast.error(data.message);
+      }else{
+       const fdata = data.data
+       const cproducts = [...products, ...fdata];
+         setProducts(cproducts)
+         setFetching(false)
+      }
+      setLoading(false)
+   }
+ 
+ 
 
     async function getCategories(){
       const res = await fetch("/api/common/categories");
@@ -294,7 +296,7 @@ subcategories:[
           </TableRow>
         </TableHeader>
         <TableBody>
-          {products.map((product:Product) => {
+          {loading? <TableRow >  <TableCell>Loading...</TableCell><TableCell>Loading...</TableCell><TableCell>Loading...</TableCell><TableCell>Loading...</TableCell><TableCell>Loading...</TableCell><TableCell>Loading...</TableCell></TableRow>:products.map((product:Product) => {
       
          
        

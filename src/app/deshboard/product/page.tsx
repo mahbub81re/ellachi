@@ -2,7 +2,7 @@
 
 import React, {  useState } from 'react'
 import AllCat from './_components/AllCat';
-import UploadImage from '@/components/uploadImage';
+import UploadImage from "@/components/firebaseImage";
 interface Product {
         productName:string,
         productDescription: string,

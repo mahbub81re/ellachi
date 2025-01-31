@@ -22,6 +22,15 @@ export default function HomeProducts() {
   const [products, setProducts] = useState <ProductData[] | []> ([]);
   const [fetchingon, setFetching] = useState(true)
   const [loading,setLoading]= useState(false);
+  const [items, setItems] = useState<string[]>([]);
+
+    useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedItems = localStorage.getItem("items");
+      setItems(storedItems ? JSON.parse(storedItems) : []);
+    }
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
 
@@ -57,6 +66,19 @@ export default function HomeProducts() {
   }
 
 
+
+    const addItem = (id: string) => {
+      if(items.includes(id)){
+          setItems((prevItems) => prevItems.filter((item) => item !== id));
+        const newI=items.filter((item)=>item !==id)
+        localStorage.setItem("items", JSON.stringify(newI)); 
+      }else{
+      const updatedItems = [...items, id];
+      setItems(updatedItems);
+      localStorage.setItem("items", JSON.stringify(updatedItems)); // Update storage
+      }
+    };
+
   return (
     <div className='w-full flex flex-col'>
         
@@ -70,19 +92,19 @@ export default function HomeProducts() {
               
 
                 {loading?"Loading..":products.map((product)=>{
-
+                      
                   return(<Card
                     key={product._id}
                     className="max-w-sm relative"
                     imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
                     imgSrc={product.productImage}
                   >
-                     <div className=' absolute text-white top-0 right-0 p-3 hover:text-red-500'> <MdFavorite size={30} /> </div>
+                     <div className={' absolute  top-0 right-0 p-3 '+(items.includes(product._id)?"text-red-500":"text-white")} onClick={()=>addItem(product._id)}> <MdFavorite size={30} /> </div>
                     <Link href="/">
                       <h5 className="text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
                        {product.productName}
                       </h5>
-                    
+                     
                     <div className="mb-1 mt-1 flex flex-row items-center my-2">
                      
                     <span className="text-xl font-bold  dark:text-white pr-2 text-red-500"><del>${product.productSlug}</del></span>

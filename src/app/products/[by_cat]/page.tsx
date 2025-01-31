@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import Image from "next/image";
 import { Card } from "flowbite-react";
 import Link from "next/link";
+import { MdFavorite } from "react-icons/md";
 interface Category{
     
     _id:string;
@@ -39,6 +40,26 @@ export default function ProductByCat({ params }: { params: Promise<{ by_cat: str
     const [loading,setLoading]= useState(true);
     const [ploading,setPLoading]= useState(true);
    const [products , setProducts] = useState<Product[]|[]>([])
+   const [items, setItems] = useState<string[]>([]);
+
+   useEffect(() => {
+   if (typeof window !== "undefined") {
+     const storedItems = localStorage.getItem("items");
+     setItems(storedItems ? JSON.parse(storedItems) : []);
+   }
+ }, []);
+
+   const addItem = (id: string) => {
+     if(items.includes(id)){
+         setItems((prevItems) => prevItems.filter((item) => item !== id));
+       const newI=items.filter((item)=>item !==id)
+       localStorage.setItem("items", JSON.stringify(newI)); 
+     }else{
+     const updatedItems = [...items, id];
+     setItems(updatedItems);
+     localStorage.setItem("items", JSON.stringify(updatedItems)); // Update storage
+     }
+   };
 
   const  [catagory, setCat] = useState<Category>({
     _id:"",
@@ -109,10 +130,11 @@ export default function ProductByCat({ params }: { params: Promise<{ by_cat: str
 
                   return(<Card
                     key={product._id}
-                    className="max-w-sm"
+                    className="max-w-sm relative"
                     imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
                     imgSrc={product.productImage}
                   >
+                     <div className={' absolute  top-0 right-0 p-3 '+(items.includes(product._id)?"text-red-500":"text-white")} onClick={()=>addItem(product._id)}> <MdFavorite size={30} /> </div>
                     <Link href="/">
                       <h5 className="text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
                        {product.productName}

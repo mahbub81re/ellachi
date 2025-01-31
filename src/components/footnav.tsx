@@ -61,8 +61,8 @@ export default function Footnav() {
       </div>
 
       <div className='flex flex-row justify-center border-l-2 w-1/5'>
-      <div className={'flex flex-col justify-center '+ (pathname=="/FAVOURITE" && " text-pink-400")}>
-           <Link href="/">
+      <div className={'flex flex-col justify-center '+ (pathname=="/loved" && " text-pink-400")}>
+           <Link href="/loved">
              <div>
                <AiFillHeart size={20} className='mx-auto'/>
             </div>

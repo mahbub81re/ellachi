@@ -1,3 +1,4 @@
+"use client"
 import Footer from "@/components/footer";
 import Footnav from "@/components/footnav";
 import Header from "@/components/header";
@@ -7,6 +8,10 @@ import Sliderf from "@/components/slider";
 
 
 export default function Home() {
+ 
+
+
+ 
   return (
    <div>
     <Header/>
@@ -16,8 +21,11 @@ export default function Home() {
    <Sliderf/>
 
    <SideCate/>
-
   
+
+      
+
+
   <HomeProducts/>
 
     <Footer/>
